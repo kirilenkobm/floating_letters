@@ -123,15 +123,15 @@ def parts(lst, n=25):
 def parse_args():
     """Parse args and check it."""
     app = argparse.ArgumentParser()
-    app.add_argument("text")
-    app.add_argument("output")
+    app.add_argument("text", help="Text to draw")
+    app.add_argument("output", help="Where to save")
     app.add_argument("--font", default="BEBAS", help="Font to use."
-                     "There must be png files like:"
+                     "There must be png files like: "
                      "letters/{FONT_NAME}_{character}.png")
     app.add_argument("--black_background", "-b", action="store_true", dest="black_background",
                      help="Make black background instead of white")
-    app.add_argument("--grid_x", "-x", type=int, default=7)
-    app.add_argument("--grid_y", "-y", type=int, default=3)
+    app.add_argument("--grid_x", "-x", type=int, default=7, help="Width, letters")
+    app.add_argument("--grid_y", "-y", type=int, default=3, help="Height, letters")
     app.add_argument("--rgb_shift", "-r", type=int, default=2)
     if len(sys.argv) < 3:
         app.print_help()
