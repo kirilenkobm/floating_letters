@@ -16,24 +16,24 @@ But first, it should be converted to images with "font_to_letters.py"
 
 Write usage info.
 
-Like what all this stuff means:
-
 ```txt
 usage: draw.py [-h] [--font FONT] [--black_background] [--grid_x GRID_X]
                [--grid_y GRID_Y] [--rgb_shift RGB_SHIFT]
                text output
 
 positional arguments:
-  text
-  output
+  text                  Text to draw
+  output                Where to save
 
 optional arguments:
   -h, --help            show this help message and exit
-  --font FONT           Font to use.There must be png files
-                        like:letters/{FONT_NAME}_{character}.png
+  --font FONT           Font to use.There must be png files like:
+                        letters/{FONT_NAME}_{character}.png
   --black_background, -b
                         Make black background instead of white
   --grid_x GRID_X, -x GRID_X
+                        Width, letters
   --grid_y GRID_Y, -y GRID_Y
+                        Height, letters
   --rgb_shift RGB_SHIFT, -r RGB_SHIFT
 ```
