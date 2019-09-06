@@ -12,9 +12,9 @@ Available fonts for now are "emboss" and "BEBAS".
 Actually, any fond in ttf format may be used.
 But first, it should be converted to images with "font_to_letters.py"
 
-## TODO
+## Usage
 
-Write usage info.
+Main script:
 
 ```txt
 usage: draw.py [-h] [--font FONT] [--black_background] [--grid_x GRID_X]
@@ -36,4 +36,10 @@ optional arguments:
   --grid_y GRID_Y, -y GRID_Y
                         Height, letters
   --rgb_shift RGB_SHIFT, -r RGB_SHIFT
+```
+
+Script to convert ttf into a program-readable form:
+
+```txt
+./font_to_letters.py [ttf file] [output folder]
 ```
