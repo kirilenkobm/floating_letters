@@ -19,8 +19,8 @@ But first, it should be converted to images with "font_to_letters.py"
 Main script:
 
 ```txt
-usage: draw.py [-h] [--font FONT] [--black_background] [--grid_x GRID_X]
-               [--grid_y GRID_Y] [--rgb_shift RGB_SHIFT]
+usage: draw.py [-h] [--font FONT] [--black_background] [--smart]
+               [--grid_x GRID_X] [--grid_y GRID_Y] [--rgb_shift RGB_SHIFT]
                text output
 
 positional arguments:
@@ -29,10 +29,12 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
-  --font FONT           Font to use.There must be png files like:
+  --font FONT, -f FONT  Font to use.There must be png files like:
                         letters/{FONT_NAME}_{character}.png
   --black_background, -b
                         Make black background instead of white
+  --smart, -s           Smart alignment of letters, then grid_x and y options
+                        are cancelled. Recommended to use.
   --grid_x GRID_X, -x GRID_X
                         Width, letters
   --grid_y GRID_Y, -y GRID_Y
