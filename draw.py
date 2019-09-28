@@ -3,11 +3,12 @@
 import argparse
 import sys
 import os
+import numpy as np
 from skimage import io
 from skimage import img_as_float
+from skimage import img_as_ubyte
 from skimage import transform as tf
 import imageio
-import numpy as np
 
 __author__ = "kirilenko_bm"
 LETTERS_DIR = "letters"
@@ -125,11 +126,12 @@ def parse_args():
     app = argparse.ArgumentParser()
     app.add_argument("text", help="Text to draw")
     app.add_argument("output", help="Where to save")
-    app.add_argument("--font", "-f", default="Helvetica", help="Font to use."
-                     "There must be png files like: "
+    app.add_argument("--font", "-f", default="Helvetica", help="Font to use. "
+                     "There must be png files named as: "
                      "letters/{FONT_NAME}_{character}.png")
     app.add_argument("--black_background", "-b", action="store_true", dest="black_background",
-                     help="Make black background instead of white")
+                     help="Make black background instead of white. Suitable for fonts "
+                          "with white letters.")
     app.add_argument("--smart", "-s", action="store_true", dest="smart",
                      help="Smart alignment of letters, then grid_x and y "
                           "options are cancelled. Recommended to use.")
@@ -146,13 +148,13 @@ def parse_args():
 def read_font(font_name, black_background=False):
     """Return character: image dictionary."""
     char_filenames = [x for x in os.listdir(LETTERS_DIR) if x.startswith(font_name)]
-    die("Error! Pictures for {} font not found") if len(char_filenames) == 0 else None
+    die(f"Error! Pictures for {font_name} font not found") if len(char_filenames) == 0 else None
     char_arr = {}
     for font_file in char_filenames:
         character = font_file.split("_")[1].split(".")[0]
         char_path = os.path.join(LETTERS_DIR, font_file)
         arr = img_as_float(io.imread(char_path))
-        h, w, d = arr.shape
+        h, w, _ = arr.shape
         how_left = LETTER_SHAPE[0] - w
         left_fill = np.ones((h, how_left // 2 + how_left % 2, 3)) if not black_background else \
             np.zeros((h, how_left // 2 + how_left % 2, 3))
@@ -173,6 +175,8 @@ def read_font(font_name, black_background=False):
 
 def rgb_shift(img, kt):
     """Apply chromatic aberration."""
+    if kt == 0:
+        return img
     shp = img.shape
     red = img[:, :, 0]
     green = img[:, :, 1]
@@ -207,6 +211,7 @@ def split_text(text, width):
             ctr += 1
         res += word
     return res.split("\n")
+
 
 def get_lines(text, w_opt=None):
     """Return X Y for grid."""
@@ -246,8 +251,9 @@ def main():
     gif_frames = []
     for frame_num in range(FRAMES_NUM * 2):
         frame = G.make_frame(frame_num)
-        frame = rgb_shift(frame, rgb_shift_param)
-        frame[frame < 0.2] = 0.0
+        # img_as_ubyte to supress a ton of warnings
+        frame = img_as_ubyte(rgb_shift(frame, rgb_shift_param))
+        # frame[frame < 40] = 0
         gif_frames.append(frame)
     imageio.mimsave(args.output, gif_frames)
     sys.exit(0)

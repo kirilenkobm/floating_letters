@@ -29,7 +29,7 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
-  --font FONT, -f FONT  Font to use.There must be png files like:
+  --font FONT, -f FONT  Font to use. There must be png files like:
                         letters/{FONT_NAME}_{character}.png
   --black_background, -b
                         Make black background instead of white
