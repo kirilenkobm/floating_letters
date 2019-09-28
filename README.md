@@ -8,7 +8,9 @@ Supports different fonts:
 
 ![alt text](examples/cannot.gif "Cannot")
 
-Available fonts for now are "emboss" and "BEBAS".
+Available fonts for now are "Helvetica" and "BEBAS".
+For "Helvetica" font, cyrrilic characters are available.
+For "BEBAS", unfortunately, they do not.
 Actually, any fond in ttf format may be used.
 But first, it should be converted to images with "font_to_letters.py"
 
