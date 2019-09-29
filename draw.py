@@ -252,6 +252,7 @@ def main():
     for frame_num in range(FRAMES_NUM * 2):
         frame = G.make_frame(frame_num)
         # img_as_ubyte to supress a ton of warnings
+        frame = rgb_shift(frame, rgb_shift_param)
         frame = img_as_ubyte(rgb_shift(frame, rgb_shift_param))
         # frame[frame < 40] = 0
         gif_frames.append(frame)
